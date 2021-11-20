@@ -17,20 +17,25 @@ public class Vector2D {
     //==========PUBLIC PROPERTIES (MUTATORS & ACCESSORS)==========
 
                 //=====Setters (Modifiers)=====
-    public void setX(float x)
+    public void setX(final float x)
     {
         this.x = x;
     }
 
-    public void setY(float y)
+    public void setY(final float y)
     {
         this.y = y;
     }
 
-    public void set(float x, float y)
+    public void set(final float x,final float y)
     {
         this.x =x;
         this.y = y;
+    }
+    public void set(final Vector2D vector)
+    {
+        this.x = vector.x;
+        this.y = vector.y;
     }
 
                 //=====Getters (Accessors)=====
@@ -51,13 +56,13 @@ public class Vector2D {
         this.y = 0;
     }
 
-    Vector2D(float x, float y)
+    Vector2D(final float x,final float y)
     {
         set(x,y);
     }
 
                 //=====Copy constructor=====
-    Vector2D(@NotNull Vector2D vector)
+    Vector2D(final Vector2D vector)
     {
         set(vector.getX(), vector.getY());
     }
@@ -65,34 +70,33 @@ public class Vector2D {
     //==========PRIVATE METHODS==========
 
 
-
     //==========PUBLIC METHODS==========
 
-    public void add(Vector2D rhs)
+    public void add(final Vector2D rhs)
     {
         this.setX(this.getX() + rhs.getX());
         this.setY(this.getY() + rhs.getY());
     }
 
-    public void subtract (Vector2D rhs)
+    public void subtract (final Vector2D rhs)
     {
         this.setX(this.getX() - rhs.getX());
         this.setY(this.getY() - rhs.getY());
     }
 
-    public void multiply (Vector2D rhs)
+    public void multiply (final Vector2D rhs)
     {
         this.setX(this.getX() * rhs.getX());
         this.setY(this.getY() * rhs.getY());
     }
 
-    public void divide (Vector2D rhs)
+    public void divide (final Vector2D rhs)
     {
         this.setX(this.getX() / rhs.getX());
         this.setY(this.getY() / rhs.getY());
     }
 
-    public boolean equals(Vector2D rhs)
+    public boolean equals(final Vector2D rhs)
     {
         return ((getX() == rhs.getX()) && (getY() == rhs.getY()));
     }
@@ -102,17 +106,18 @@ public class Vector2D {
         return (float) Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY());
     }
 
+
     public float getSqrMagnitude()
     {
         return (this.getX() * this.getX() + this.getY() * this.getY());
     }
 
-    public void setScale(float scale)
+    public void setScale(final float scale)
     {
         this.set(this.getX() * scale, this.getY() * scale);
     }
 
-    public void setScale(Vector2D scale)
+    public void setScale(final Vector2D scale)
     {
         this.set(this.getX() * scale.x, this.getY() * scale.y);
     }
@@ -120,13 +125,13 @@ public class Vector2D {
     public void normalize()
     {
         var magnitude = this.getMagnitude();
-        if ((double)(magnitude) > 9.9999974737875E-06)
+        if ((double)(magnitude) > 9.99999974737875E-06)
         {
             set(getX() / magnitude, getY()/ magnitude);
         }
         else
         {
-            set(0.0f, 0.0f);
+            set(Vector2D.zero());
         }
     }
 
@@ -162,7 +167,7 @@ public class Vector2D {
 
     public static Vector2D right()
     {
-        return new Vector2D(0.0f, -1.0f);
+        return new Vector2D(1.0f, 0.0f);
     }
 
     public static Vector2D up()
@@ -199,7 +204,7 @@ public class Vector2D {
         final  var delta_x = (double)(b.getX()) - (double)(a.getX());
         final  var delta_y = (double)(b.getY()) - (double)(a.getY());
 
-        return ((float)(delta_x * delta_x + delta_y * delta_y));
+        return (float)(Math.sqrt(delta_x * delta_x + delta_y * delta_y));
     }
 
 }
